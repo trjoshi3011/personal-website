@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <circle cx="46" cy="40" r="22" stroke="#111111" stroke-width="4"/>
+  <path d="M30 40H62M46 24V56" stroke="#111111" stroke-width="3"/>
+  <text x="84" y="50" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#111111">UN</text>
+</svg>
