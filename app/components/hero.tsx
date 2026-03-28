@@ -1,11 +1,18 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { ClickMeHint } from "./click-me-hint";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { MagneticScrollLink } from "./magnetic-scroll-link";
 import { OrgHoverGroup } from "./org-hover-group";
-import { locationTicker, organizations, roleTicker, siteConfig } from "@/app/data";
+import {
+  locationTicker,
+  nameInLanguages,
+  organizations,
+  roleTicker,
+  siteConfig,
+} from "@/app/data";
 
 const socialIcons = [
   { icon: GithubIcon, href: siteConfig.socials.github, label: "GitHub" },
@@ -20,6 +27,7 @@ const PAUSE_BEFORE_NEXT_MS = 350;
 export function Hero() {
   const [locationIndex, setLocationIndex] = useState(0);
   const [roleText, setRoleText] = useState("");
+  const [nameLangIndex, setNameLangIndex] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -65,6 +73,12 @@ export function Hero() {
     };
   }, []);
 
+  const advanceNameLanguage = useCallback(() => {
+    setNameLangIndex((i) => (i + 1) % nameInLanguages.length);
+  }, []);
+
+  const displayName = nameInLanguages[nameLangIndex];
+
   return (
     <>
       <motion.div
@@ -92,14 +106,38 @@ export function Hero() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center">
         <div className="mb-12" />
 
-        {/* Name */}
+        {/* Name — click cycles scripts */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          className="flex flex-col items-center"
         >
+          <ClickMeHint
+            wrapperClassName="pointer-events-none mb-1 flex w-full max-w-[min(100%,20rem)] justify-end md:max-w-md"
+          />
           <h1 className="font-display text-[clamp(3.5rem,12vw,11rem)] font-semibold leading-[0.9] tracking-tight text-stone-900">
-            {siteConfig.name}
+            <span className="sr-only">{siteConfig.name}</span>
+            <button
+              type="button"
+              onClick={advanceNameLanguage}
+              aria-label="Show name in another language or script"
+              className="m-0 inline-block min-w-[4ch] cursor-pointer border-0 bg-transparent p-0 font-inherit text-inherit leading-[0.9] tracking-tight text-stone-900 outline-none select-none focus-visible:ring-2 focus-visible:ring-orange-500/45 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f2e9] md:min-w-[5ch]"
+            >
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={displayName}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="inline-block"
+                  aria-hidden
+                >
+                  {displayName}
+                </motion.span>
+              </AnimatePresence>
+            </button>
           </h1>
         </motion.div>
 

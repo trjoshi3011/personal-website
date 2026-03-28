@@ -13,6 +13,17 @@ export const siteConfig = {
   },
 };
 
+/** Hero name cycles through these while the user hovers (same name, different scripts). */
+export const nameInLanguages = [
+  "Tanay",
+  "तनय",
+  "タナイ",
+  "Танай",
+  "塔奈",
+  "تاناى",
+  "타나이",
+] as const;
+
 /** Right-rail scroll spy + smooth-scroll targets (order = top to bottom). */
 export const scrollNavSections = [
   { id: "about", label: "About" },
@@ -57,10 +68,21 @@ export const organizations = [
 
 export const aboutContent = {
   paragraphs: [
-    "I'm a software engineer with a passion for crafting elegant solutions to complex problems. With experience spanning full-stack development, system design, and creative coding, I bring a unique perspective to every project I take on.",
-    "When I'm not writing code, you'll find me exploring new technologies, contributing to open source, or designing interfaces that push the boundaries of what's possible on the web.",
+    "Junior at UC Berkeley studying Data Science & Economics — still figuring out what I want to do with that, while trying not to get replaced by AI in the process.",
+    "When I'm not filing an extension for a CS project, you can find me on the basketball court going 4/20 from three, somewhere on a golf course shanking balls, or on a run pretending I'm not dying inside. Recently fell down the Formula 1 rabbit hole and am still figuring out which team I'll be loyal to for the rest of my life.",
+    "Always trying to be as performative as I can be — if you have suggestions, I'm all ears."
   ],
 };
+
+/** About section — click the card to cycle stats. */
+export const yearInReviewStats = [
+  "47 miles run",
+  "7,458 minutes listened on Spotify",
+  "347 three-pointers made",
+  "67 coffees drank",
+  "31 hours spent on F1",
+  "58 Fifa games played",
+] as const;
 
 /** Timeline stops for the Work Experience slider (left → right = chronological). */
 export const workExperienceTimeline = [
